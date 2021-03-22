@@ -1,3 +1,116 @@
+namespace SpriteKind {
+    export const gold = SpriteKind.create()
+    export const ghost = SpriteKind.create()
+    export const spawner = SpriteKind.create()
+}
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    game.over(false, effects.dissolve)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.ghost, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.fire, 1000)
+    info.changeLifeBy(-2)
+})
+scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile15`, function (sprite, location) {
+    game.over(true, effects.confetti)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.spawner, function (sprite, otherSprite) {
+    mySprite3 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Enemy)
+    otherSprite.destroy()
+    mySprite3.ay = 300
+    animation.runImageAnimation(
+    mySprite3,
+    [img`
+        . . . . 5 5 5 5 5 5 . . . . . . 
+        . . . . 5 5 5 5 5 5 . . . . . . 
+        . . . . 1 f 5 5 f 1 . . . . . . 
+        . . . . 4 5 5 5 5 4 . . . . . . 
+        . . 5 . 4 4 4 4 4 4 . 5 . . . . 
+        . . 5 . 4 4 4 4 4 4 . 5 . . . . 
+        . . 5 . . . . . . . . 5 . . . . 
+        . . 5 . 5 . . . . . . 5 . 5 . . 
+        . . 5 . 5 . . . 5 . . 5 . 5 . . 
+        . . . . 5 . . . 5 . . . . 5 . . 
+        . . 5 . 5 . 5 . 5 . 5 . . 5 . . 
+        . . 5 . . . 5 . 5 . 5 . . 5 . . 
+        . . 5 . . . 5 . 5 . 5 . . 5 . . 
+        . . 5 . . . 5 . . . 5 . . . . . 
+        . . 5 . . . 5 . . . 5 . . . . . 
+        . . . . . . 5 . . . . . . . . . 
+        `,img`
+        . . . . 5 5 5 5 5 5 . . . . . . 
+        . . . . 5 5 5 5 5 5 . . . . . . 
+        . . . . 1 f 5 5 f 1 . 5 . . . . 
+        . . . . 4 5 5 5 5 4 . 5 . . . . 
+        . . . . 4 4 4 4 4 4 . 5 . . . . 
+        . . . 5 4 4 4 4 4 4 . 5 . . . . 
+        . . . 5 . . . . . . . 5 . 5 . . 
+        . . . 5 . 5 . . . . . . . 5 . . 
+        . . . 5 . 5 . . . 5 . . . 5 . . 
+        . . . 5 . 5 . . . 5 . . . 5 . . 
+        . . . . . 5 . 5 . 5 . 5 . 5 . . 
+        . . . . 5 . . 5 . 5 . 5 . 5 . . 
+        . . . . 5 . . 5 . 5 . 5 . . . . 
+        . . . . 5 . . 5 . . . 5 . . . . 
+        . . . . 5 . . 5 . . . 5 . . . . 
+        . . . . 5 . . 5 . . . . . . . . 
+        `,img`
+        . . . . 5 5 5 5 5 5 . . . . . . 
+        . . . . 5 5 5 5 5 5 5 . . . . . 
+        . . . . 1 f 5 5 f 1 5 . . . . . 
+        . . . . 4 5 5 5 5 4 5 . . . . . 
+        . . . . 4 4 4 4 4 4 5 . . . . . 
+        . . . . 4 4 4 4 4 4 5 . 5 . . . 
+        . . . 5 . . . . . . . . 5 . . . 
+        . . . 5 . . . 5 . . . . 5 . . . 
+        . . . 5 . . . 5 . . . . 5 . . . 
+        . . . 5 . . . 5 . . 5 . 5 . . . 
+        . . . 5 . . . 5 . . 5 . 5 . 5 . 
+        . . . . . . 5 . . . 5 . . . 5 . 
+        . . . . . . 5 . . . 5 . 5 . 5 . 
+        . . . . . . 5 . . . 5 . 5 . 5 . 
+        . . . . . . 5 . . . . . 5 . 5 . 
+        . . . . . . 5 . . . . . 5 . . . 
+        `,img`
+        . . . . 5 5 5 5 5 5 . . . . . . 
+        . . . . 5 5 5 5 5 5 . . . . . . 
+        . . . . 1 f 5 5 f 1 . 5 . . . . 
+        . . . . 4 5 5 5 5 4 . 5 . . . . 
+        . . . . 4 4 4 4 4 4 . 5 . . . . 
+        . . . 5 4 4 4 4 4 4 . 5 . . . . 
+        . . . 5 . . . . . . . 5 . 5 . . 
+        . . . 5 . 5 . . . . . . . 5 . . 
+        . . . 5 . 5 . . . 5 . . . 5 . . 
+        . . . 5 . 5 . . . 5 . . . 5 . . 
+        . . . . . 5 . 5 . 5 . 5 . 5 . . 
+        . . . . 5 . . 5 . 5 . 5 . 5 . . 
+        . . . . 5 . . 5 . 5 . 5 . . . . 
+        . . . . 5 . . 5 . . . 5 . . . . 
+        . . . . 5 . . 5 . . . 5 . . . . 
+        . . . . 5 . . 5 . . . . . . . . 
+        `],
+    100,
+    true
+    )
+    mySprite3.setPosition(mySprite.x - 25, mySprite.y)
+    mySprite3.follow(mySprite, 35)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.vy == 0) {
         mySprite.vy = -85
@@ -5,21 +118,264 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 function game_start () {
     if (current_level == 0) {
+        tiles.setTilemap(tilemap`level2`)
+    } else if (current_level == 1) {
+        tiles.setTilemap(tilemap`level3`)
+    } else if (current_level == 2) {
         tiles.setTilemap(tilemap`level1`)
-    } else if (current_level == 0) {
-        tiles.setTilemap(tilemap`level1`)
-    } else if (current_level == 0) {
-        tiles.setTilemap(tilemap`level1`)
-    } else {
-        game.over(true)
+    } else if (false) {
+        game.over(true, effects.confetti)
     }
     tiles.placeOnRandomTile(mySprite, assets.tile`myTile6`)
     for (let value of tiles.getTilesByType(assets.tile`myTile6`)) {
         tiles.setTileAt(value, assets.tile`transparency16`)
     }
+    for (let value of tiles.getTilesByType(assets.tile`myTile9`)) {
+        mySprite2 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.gold)
+        animation.runImageAnimation(
+        mySprite2,
+        [img`
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . f f . . . . 
+            . . . . . . . f f f 5 5 f . . . 
+            . . . . f f f 5 5 5 5 5 5 f . . 
+            . f f f 5 5 5 5 5 5 5 5 5 5 f . 
+            f 5 5 5 5 5 5 5 5 5 1 1 1 1 1 f 
+            f 1 5 5 5 5 5 1 1 1 4 4 4 4 4 f 
+            f 5 1 5 1 1 1 4 4 4 4 4 4 4 4 f 
+            f 5 5 1 4 4 4 4 4 4 4 4 4 4 4 f 
+            f 5 5 4 4 4 4 4 4 4 4 4 f f f . 
+            . f 5 4 4 4 4 4 4 f f f . . . . 
+            . . f 4 4 4 f f f . . . . . . . 
+            . . . f f f . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `],
+        100,
+        true
+        )
+        tiles.placeOnRandomTile(mySprite2, assets.tile`myTile9`)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile10`)) {
+        spawner = sprites.create(img`
+            b b b b b b b b b b b b b b b . 
+            b . . . . b b b b b b b b b b . 
+            b . . . . b b b . . . . . b b . 
+            b . . . b b b . b b b b b b b b 
+            b . . . . b . b . b b b b b b b 
+            b b b b b . b b b b . . . b b b 
+            . b . . . b . b . b . . . b b b 
+            b b b b b . . b b b b b b b b b 
+            b . . b b . . . . b . . . . b b 
+            b b . b . b b . b b b b b b b b 
+            b . b . b b b b . b . . . . b . 
+            b . . b . b . . . b . . . b b . 
+            b . . b b . b b b . . b b . . b 
+            b . b . . b . . . b b b . . . b 
+            b b b . . b b b b . . . . . b b 
+            . . b b b b b b b b b b b b b b 
+            `, SpriteKind.spawner)
+        tiles.placeOnTile(spawner, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile11`)) {
+        ghast = sprites.create(img`
+            . . 1 1 1 1 1 1 1 1 1 1 1 . . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+            . . 1 f f f 1 1 f f f 1 1 1 . . 
+            . . 1 1 d d 1 1 d d 1 1 1 1 . . 
+            . . 1 1 d 1 1 1 1 d 1 1 1 1 . . 
+            . . b b 1 1 1 1 1 1 1 b b 1 . . 
+            . . 1 1 1 f f f f d 1 1 1 1 . . 
+            . . 1 1 d 1 1 1 1 1 1 1 1 1 . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . 
+            . . 1 . d 1 . d 1 . . 1 . d d . 
+            . . 1 . . 1 1 . 1 1 d 1 1 . d d 
+            . . . 1 . d 1 d . 1 . . 1 . . . 
+            . . . . . . 1 . . . . . . . . . 
+            `, SpriteKind.ghost)
+        tiles.placeOnTile(ghast, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        animation.runMovementAnimation(
+        ghast,
+        "c 0 -100 0 100 0 0",
+        1000,
+        true
+        )
+    }
 }
-let current_level = 0
+scene.onOverlapTile(SpriteKind.Enemy, assets.tile`myTile0`, function (sprite, location) {
+    sprite.destroy()
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function (sprite, location) {
+    current_level += 1
+    game_start()
+    spawner.destroy(effects.spray, 500)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.gold, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    otherSprite.destroy()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.fire, 1000)
+    if (sprite.y < otherSprite.y) {
+        info.changeScoreBy(2)
+    } else {
+        info.changeLifeBy(-1)
+    }
+    if (sprite.y == otherSprite.y) {
+        info.changeLifeBy(-1)
+    }
+})
+let ghast: Sprite = null
+let spawner: Sprite = null
+let mySprite2: Sprite = null
+let mySprite3: Sprite = null
 let mySprite: Sprite = null
+let current_level = 0
+game.splash("Find your way to the Chest of Glory", "Left and Right to Move, A(SPACE) to jump")
+current_level = 0
 scene.setBackgroundImage(img`
     2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
     2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
@@ -165,5 +521,45 @@ controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 100
 scene.cameraFollowSprite(mySprite)
 mySprite.setBounceOnWall(false)
-current_level = 0
 info.setLife(5)
+game.onUpdate(function () {
+    if (mySprite.vx < 0) {
+        mySprite.setImage(img`
+            . . . . f f f f f f f . . . . . 
+            f . . f 2 2 2 2 2 2 2 f . . . . 
+            f f f f 2 2 2 2 2 2 2 f . . . . 
+            . f f f f f f f f f f f . . . . 
+            . . . f d 1 d 1 d f f f . . . . 
+            . . . f d f d f d d b f f f . . 
+            . . f d d d d d b b b f f 2 f . 
+            . . f d d f f b b f f 2 2 2 f . 
+            . . . f f f f f f f 2 f 2 2 f . 
+            . . . . f 2 f 2 2 2 f 2 f f . . 
+            . . . f f 2 f 2 2 2 f 2 f . . . 
+            . . f d f 2 f 2 2 f d b f . . . 
+            . . f b f 2 f 2 2 f b b f . . . 
+            . . . f f f f f f f f f . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . 2 2 2 . . 2 2 2 . . . . . 
+            `)
+    } else {
+        mySprite.setImage(img`
+            . . . . . f f f f f f f . . . . 
+            . . . . f 2 2 2 2 2 2 2 f . . f 
+            . . . . f 2 2 2 2 2 2 2 f f f f 
+            . . . . f f f f f f f f f f f . 
+            . . . . f f f d 1 d 1 d f . . . 
+            . . f f f b d d f d f d f . . . 
+            . f 2 f f b b b d d d d d f . . 
+            . f 2 2 2 f f b b f f d d f . . 
+            . f 2 2 f 2 f f f f f f f . . . 
+            . . f f 2 f 2 2 2 f 2 f . . . . 
+            . . . f 2 f 2 2 2 f 2 f f . . . 
+            . . . f b d f 2 2 f 2 f d f . . 
+            . . . f b b f 2 2 f 2 f b f . . 
+            . . . . f f f f f f f f f . . . 
+            . . . . . f f f f f f f . . . . 
+            . . . . . 2 2 2 . . 2 2 2 . . . 
+            `)
+    }
+})
